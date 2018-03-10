@@ -24,6 +24,9 @@ for iter = 1:num_iters
 
     %Update theta1
     theta(2) = temp_theta(2) - (alpha/m) * (sum((X * temp_theta - y) .* X(:,2)));
+    
+    %The following code can be used in both single and multiple variable
+    %theta = theta - (alpha/m) * (X' * (X * theta - y ));
 
     % ============================================================
 

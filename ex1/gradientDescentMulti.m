@@ -19,7 +19,11 @@ for iter = 1:num_iters
 
     theta = theta - (alpha/m) * (X' * (X * theta - y ));
 
-
+    %The following code is also feasible
+    %thetaTemp = theta;
+    %for i = 1: size(X,2)
+    %    theta(i) = thetaTemp(i) - alpha/m*sum((X*thetaTemp - y) .* X(:,i));
+    %end
 
     % ============================================================
 
