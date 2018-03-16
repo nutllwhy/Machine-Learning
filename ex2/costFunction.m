@@ -23,7 +23,6 @@ grad = zeros(size(theta));
 h = sigmoid(X * theta);
 
 J = (sum(-y' * log(h) - (1 - y)' * log(1 - h))) / m;
-%grad = (sum((h - y)' * X(:,2))) ./ m;
 
 for theta_index = 1:size(X,2);
 	grad(theta_index) = sum((h - y)' * X(:,theta_index)) / m;
