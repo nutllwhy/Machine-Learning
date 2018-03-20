@@ -30,7 +30,8 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
-
+predict_all = X * all_theta;
+p = 
 
 
 
