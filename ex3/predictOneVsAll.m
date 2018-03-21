@@ -30,8 +30,8 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
-predict_all = X * all_theta;
-p = 
+predict_all = X * all_theta';
+[highest_probability, p] = max(predict_all, [], 2);
 
 
 
