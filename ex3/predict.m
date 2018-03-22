@@ -22,7 +22,12 @@ p = zeros(size(X, 1), 1);
 %
 
 
-
+a_1 = [ones(m,1) X];
+z_2 = a_1 * Theta1';
+a_2 = [ones(m,1) sigmoid(z_2)];
+z_3 = a_2 * Theta2';
+a_3 = sigmoid(z_3);
+[highest_probability, p] = max(a_3, [], 2);
 
 
 
