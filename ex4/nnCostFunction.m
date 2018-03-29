@@ -62,7 +62,73 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+%% follow the neural network to compute the hypothesis
+a_1 = [ones(m, 1) X];
+z_2 = a_1 * Theta1';
+a_2 = [ones(m,1) sigmoid(z_2)];
+z_3 = a_2 * Theta2';
+a_3 = sigmoid(z_3);
+hypothesis = a_3;
 
+%recode the labels as vectors
+vector_y = diag(ones(1,num_labels),0);
+
+%% compute the Regularized cost function J
+%1.compute the J without regularization
+for i = 1:m
+    J =J + (-log(hypothesis(i,:)) * vector_y(:,y(i)) - log(1-hypothesis(i,:)) * (1-vector_y(:,y(i))));
+end
+J = J/m;
+%2.add regularization to your cost function
+Theta1_Total = 0;
+for i = 1:size(Theta1,1)
+    for j = 2:size(Theta1,2)
+        Theta1_Total = Theta1_Total + Theta1(i,j) ^2;
+    end
+end
+Theta2_Total = 0;
+for i = 1:size(Theta2,1)
+    for j = 2:size(Theta2,2)
+        Theta2_Total = Theta2_Total + Theta2(i,j) ^2;
+    end
+end
+J = J + lambda * (Theta1_Total + Theta2_Total) / (2 * m);
+
+
+Diff_1 = zeros(size(Theta1,1),size(Theta1,2));
+Diff_2 = zeros(size(Theta2,1),size(Theta2,2));
+%% backpropagation algorithm 
+%1.compute the gradient without regularization
+for i = 1:m
+    a_1 = [1 X(i,:)];
+    z_2 = a_1 * Theta1';
+    a_2 = [1 sigmoid(z_2)];
+    z_3 = a_2 * Theta2';
+    a_3 = sigmoid(z_3);
+    
+    delta_3 = a_3' - vector_y(:,y(i));
+    delta_2 = Theta2' * delta_3 .* sigmoidGradient([1 z_2]') ;
+    % Note that you should skip or remove the first element of delta_2
+    delta_2 = delta_2(2:end);
+    
+    Diff_2 = Diff_2 + delta_3 * a_2;
+    Diff_1 = Diff_1 + delta_2 * a_1;
+    
+end
+Theta2_grad = Diff_2 / m;
+Theta1_grad = Diff_1 / m;
+
+%2.add regularization to gradient
+for i = 1:size(Theta1,1)
+    for j = 2:size(Theta1,2)
+        Theta1_grad(i,j) = Theta1_grad(i,j) + lambda * Theta1(i,j) / m;
+    end
+end
+for i = 1:size(Theta2,1)
+    for j = 2:size(Theta2,2)
+        Theta2_grad(i,j) = Theta2_grad(i,j) + lambda * Theta2(i,j) / m;
+    end
+end
 
 
 
