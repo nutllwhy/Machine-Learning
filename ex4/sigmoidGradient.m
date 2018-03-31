@@ -13,8 +13,11 @@ g = zeros(size(z));
 %               each value of z (z can be a matrix, vector or scalar).
 
 
-
-
+for i = 1:size(z,1)
+	for j = 1:size(z,2)
+		g(i,j) = sigmoid(z(i,j)) * (1 - sigmoid(z(i,j)));
+	end
+end
 
 
 
