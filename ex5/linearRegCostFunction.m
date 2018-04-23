@@ -20,7 +20,7 @@ grad = zeros(size(theta));
 %
 
 %output of hypothesis
-hypothesis = X *theta;
+hypothesis = X * theta;
 
 %Compute the J
 J = (1/(2*m)) * sum((hypothesis - y) .^ 2) + (lambda/(2*m)) * sum(theta(2:size(theta)) .^ 2);
