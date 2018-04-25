@@ -64,6 +64,7 @@ while ~isempty(email_contents)
     % Remove any non alphanumeric characters
     str = regexprep(str, '[^a-zA-Z0-9]', '');
 
+
     % Stem the word 
     % (the porterStemmer sometimes has issues, so we use a try catch block)
     try str = porterStemmer(strtrim(str)); 
@@ -98,7 +99,12 @@ while ~isempty(email_contents)
     %
 
 
-
+    for i = 1:length(vocabList)
+        if strcmp(str,vocabList{i}) == 1
+            word_indices = [word_indices ; i];
+        end
+    end
+    
 
 
 
